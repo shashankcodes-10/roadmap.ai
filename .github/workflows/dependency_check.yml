@@ -1,0 +1,29 @@
+name: DEPENDENCY CHECK
+
+on:
+  workflow_call:
+
+jobs:
+  dependency_check:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ---------------- CODE CHECKOUT ----------------
+      - name: code checkout
+        uses: actions/checkout@v7
+
+      # ---------------- NODE.JS ----------------
+      - name: setup node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: install dependency
+        run: npm ci
+
+      # ---------------- NPM AUDIT ----------------
+      - name: Dependency Vulnerability Scan
+        run: npm audit --audit-level=high
