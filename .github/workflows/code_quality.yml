@@ -1,0 +1,33 @@
+name: CODE QUALITY
+
+on:
+  workflow_call:
+
+jobs:
+  code_quality:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ---------------- CHECKOUT ----------------
+      - name: code checkout
+        uses: actions/checkout@v7
+
+      # ---------------- NODE.JS ----------------
+      - name: set up node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: installing npm packages
+        run: npm ci
+
+      # ---------------- ESLINT ----------------
+      - name: Run ESLint
+        run: npm run lint
+
+      # ---------------- TYPESCRIPT ----------------
+      - name: Run TypeScript check
+        run: npm run typecheck

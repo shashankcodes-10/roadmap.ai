@@ -1,0 +1,9 @@
+name: DEVSECOPS
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  code_quality:
+    uses: ./.github/workflows/code_quality.yml
