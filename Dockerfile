@@ -4,6 +4,7 @@ FROM node:22-slim AS deps
 WORKDIR /app
 # better-sqlite3 (local-dev-only DB driver) has no prebuilt binary for every
 # platform/Node combo and falls back to compiling from source via node-gyp.
+# hadolint ignore=DL3008
 RUN apt-get update && apt-get install -y --no-install-recommends \
   python3 make g++ \
   && rm -rf /var/lib/apt/lists/*
