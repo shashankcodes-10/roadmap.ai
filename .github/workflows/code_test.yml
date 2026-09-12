@@ -8,12 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-      # ---------------- CODE CHECKOUT ----------------
       - name: code checkout
         uses: actions/checkout@v7
 
-      # ---------------- NODE.JS ----------------
       - name: setup node
         uses: actions/setup-node@v7
         with:
@@ -24,20 +21,20 @@ jobs:
       - name: install dependency
         run: npm ci
 
-      # ---------------- UNIT TESTS ----------------
+      - name: setup e2e database
+        run: npm run db:migrate
+        env:
+          SQLITE_PATH: sqlite.e2e.db
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+          TURSO_AUTH_TOKEN:  ${{  TURSO_AUTH_TOKEN }}
+
       - name: code test for node
         run: npm run test
 
-      # ---------------- PLAYWRIGHT ----------------
       - name: install playwright
         run: npx playwright install --with-deps chromium
 
-      # ---------------- E2E DATABASE ----------------
-      - name: setup e2e database
-        run: npm run db:push
-        env:
-          SQLITE_PATH: sqlite.e2e.db
-
-      # ---------------- E2E TESTS ----------------
       - name: code test for e2e
         run: npm run test:e2e
+        env:
+          SQLITE_PATH: sqlite.e2e.db
