@@ -1,0 +1,39 @@
+name: SONAR SCAN
+
+on:
+  workflow_call:
+
+jobs:
+   sonar-scan:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: code checkout
+        uses: actions/checkout@v7
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v8.2.1
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+
+### steps to setup sonar
+# configure a ec2 with minimum 4 rg ram and 20 gb storage
+# sudo apt-get update
+# sudo apt-get install docker.io 
+# sudo apt-get install docker-compose-v2
+# sudo usermod -aG docker $USER
+# newgrp docker
+#  steps to run sonar-scan-------------------------------------
+#   docker run -d --name sonarqube \
+#       -p 9000:9000 \
+#       -v sonarqube_data:/opt/sonarqube/data \
+#       -v sonarqube_extensions:/opt/sonarqube/extensions \
+#       -v sonarqube_logs:/opt/sonarqube/logs \
+#        sonarqube:community
+# make a sonar-project.properties - add these
+  # sonar.projectKey=devboard
+  # sonar.projectName=DevBoard
+  # sonar.sources=frontend,backend 
+
+# add  token for sonar  
