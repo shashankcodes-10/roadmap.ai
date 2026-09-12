@@ -32,6 +32,12 @@ jobs:
       - name: install playwright
         run: npx playwright install --with-deps chromium
 
+      # ---------------- E2E DATABASE ----------------
+      - name: setup e2e database
+        run: npm run db:push
+        env:
+          SQLITE_PATH: sqlite.e2e.db
+
       # ---------------- E2E TESTS ----------------
       - name: code test for e2e
         run: npm run test:e2e
