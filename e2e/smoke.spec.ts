@@ -17,6 +17,8 @@ test("learner can sign up and reach dashboard", async ({ page }) => {
 
 test("public track page is read-only for signed-out visitors", async ({ page }) => {
   await page.goto("/tracks/devops");
-  await expect(page.getByRole("heading", { name: "DevOps" })).toBeVisible();
+  await expect(
+      page.getByRole("heading", { name: "DevOps", exact: true })
+  ).toBeVisible();
   await expect(page.getByText(/create an account/i)).toBeVisible();
 });
