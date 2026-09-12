@@ -1,0 +1,41 @@
+name: DOCKER SCAN
+
+on:
+  workflow_call:
+
+jobs:
+  docker_scan:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ---------------- CODE CHECKOUT ----------------
+      - name: code checkout
+        uses: actions/checkout@v7
+
+      # ---------------- DOCKERFILE SCAN ----------------
+      - name: hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+      # ---------------- DOCKER IMAGE BUILD ----------------
+      - name: login to docker hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: docker image build
+        run: docker build -t roadmap-ai:latest .
+
+      # ---------------- IMAGE VULNERABILITY SCAN ----------------
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: 'roadmap-ai:latest'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
