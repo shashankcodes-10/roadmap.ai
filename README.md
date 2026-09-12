@@ -1,76 +1,877 @@
-# TWS Roadmaps
+# 🗺️ Roadmap AI
 
-A learning-roadmap website: admins build tracks (Subjects → Milestones → Topics/Subtopics) like DevOps or Cloud Engineering, and learners create an account, follow the trail, and check off milestones as they complete them.
+An interactive learning roadmap platform for exploring structured learning paths, topics, resources, and progress.
 
-Built with Next.js App Router, TypeScript, Tailwind v4 + shadcn/ui, Drizzle ORM (SQLite locally, Turso in production), and Auth.js.
+> **Original Project:** [Shubham Londhe (`LondheShubham153`)](https://github.com/LondheShubham153)
+> **This fork/deployment:** [Shashank Pipal](https://github.com/shashankcodes-10)
+> **Live Deployment:** [roadmap-ai.shashankpipal.in](https://roadmap-ai.shashankpipal.in)
 
-## Getting started
+---
+
+## 🌐 Live Demo
+
+🚀 **Live Application:**
+https://roadmap-ai.shashankpipal.in/
+
+The deployed application provides the same core Roadmap AI experience with additional deployment and DevSecOps automation implemented in this fork.
+
+---
+
+## 📌 About the Project
+
+Roadmap AI is a learning roadmap application designed to help learners follow structured paths for different technologies and career areas.
+
+The application provides:
+
+* 📚 Structured learning roadmaps
+* 🗂️ Subjects and topics
+* 📈 Learning progress tracking
+* 🔗 Learning resources
+* 👤 User authentication
+* 🔐 Learner and admin roles
+* 🎯 Career-level based content
+* 🧭 Interactive roadmap navigation
+* 📱 Responsive user interface
+
+The original application and concept were created by **Shubham Londhe**.
+
+This repository is a fork used for learning, deployment, infrastructure, and DevSecOps implementation.
+
+---
+
+# ✨ Features
+
+## 📚 Learning Roadmaps
+
+Explore structured learning paths containing:
+
+* Subjects
+* Topics
+* Subtopics
+* Learning levels
+* Resources
+* Topic relationships
+
+---
+
+## 👤 Authentication
+
+The application provides credential-based authentication using Auth.js.
+
+Users can:
+
+* Create an account
+* Sign in
+* Access their dashboard
+* Track their learning progress
+
+---
+
+## 📈 Progress Tracking
+
+Learners can track completed topics and monitor their progress through the roadmap.
+
+---
+
+## 🔐 Role-Based Access
+
+The application supports different user roles, including:
+
+* Learner
+* Admin
+
+Administrative functionality allows roadmap content to be managed.
+
+---
+
+## 🔗 Learning Resources
+
+Topics can contain external learning resources such as:
+
+* Articles
+* Documentation
+* Tutorials
+* Other learning material
+
+---
+
+# 🛠️ Tech Stack
+
+### Frontend
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* shadcn/ui
+* Lucide React
+
+### Backend
+
+* Next.js App Router
+* Auth.js
+* Drizzle ORM
+
+### Database
+
+Development / testing:
+
+* SQLite
+* better-sqlite3
+
+Production:
+
+* Turso
+* libSQL
+
+### Testing
+
+* Vitest
+* Playwright
+
+### DevOps
+
+* Docker
+* Docker Compose
+* GitHub Actions
+* AWS EC2
+* Terraform
+
+### DevSecOps
+
+* Gitleaks
+* npm audit
+* Trivy
+* Hadolint
+* SonarQube
+* CodeQL
+* OWASP ZAP
+
+---
+
+# 🏗️ Project Architecture
+
+```text
+                         ┌──────────────────────┐
+                         │      Developer       │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                              Git Repository
+                                    │
+                                    ▼
+                              GitHub Actions
+                                    │
+                 ┌──────────────────┼──────────────────┐
+                 │                  │                  │
+                 ▼                  ▼                  ▼
+          Code Quality       Security Scans      Code Tests
+                 │                  │                  │
+                 └──────────────────┼──────────────────┘
+                                    │
+                                    ▼
+                              Docker Scan
+                                    │
+                                    ▼
+                              Docker Image
+                                    │
+                                    ▼
+                              Deployment
+                                    │
+                                    ▼
+                         ┌────────────────────┐
+                         │   Roadmap AI App   │
+                         └─────────┬──────────┘
+                                   │
+                         ┌─────────┴─────────┐
+                         ▼                   ▼
+                      Turso               Vercel
+                    Production DB       Web Deployment
+```
+
+---
+
+# 📁 Project Structure
+
+```text
+roadmap.ai/
+│
+├── app/
+│   ├── api/
+│   ├── dashboard/
+│   ├── login/
+│   ├── signup/
+│   ├── tracks/
+│   └── ...
+│
+├── components/
+│   └── ...
+│
+├── e2e/
+│   └── smoke.spec.ts
+│
+├── lib/
+│   ├── db/
+│   │   ├── client.ts
+│   │   ├── migrate.ts
+│   │   ├── schema.ts
+│   │   └── seed.ts
+│   └── ...
+│
+├── drizzle/
+│   ├── migrations
+│   └── meta/
+│
+├── tests/
+│   └── ...
+│
+├── public/
+│   └── ...
+│
+├── .github/
+│   └── workflows/
+│
+├── Dockerfile
+├── docker-compose.yml
+├── drizzle.config.ts
+├── playwright.config.ts
+├── next.config.ts
+├── package.json
+├── package-lock.json
+└── README.md
+```
+
+---
+
+# 🚀 Getting Started
+
+## Prerequisites
+
+Install the following:
+
+* Node.js 22+
+* npm
+* Git
+
+Optional:
+
+* Docker
+* Docker Compose
+
+---
+
+# 1. Clone the Repository
+
+```bash
+git clone https://github.com/shashankcodes-10/roadmap.ai-workflows.git
+```
+
+Navigate into the project:
+
+```bash
+cd roadmap.ai-workflows
+```
+
+---
+
+# 2. Install Dependencies
+
+```bash
+npm ci
+```
+
+For development environments where the lockfile needs to be regenerated:
 
 ```bash
 npm install
-cp .env.example .env.local   # generates one AUTH_SECRET; edit values as needed
+```
+
+---
+
+# 3. Configure Environment Variables
+
+Create a local environment file:
+
+```bash
+touch .env
+```
+
+Add the required environment variables.
+
+For local SQLite development:
+
+```env
+SQLITE_PATH=sqlite.db
+AUTH_SECRET=your-local-secret
+```
+
+For production using Turso:
+
+```env
+TURSO_DATABASE_URL=your-turso-database-url
+TURSO_AUTH_TOKEN=your-turso-auth-token
+AUTH_SECRET=your-production-secret
+```
+
+### ⚠️ Security
+
+Never commit:
+
+```text
+.env
+```
+
+or production credentials to Git.
+
+---
+
+# 🗄️ Database Setup
+
+## Local SQLite
+
+The project automatically uses SQLite when:
+
+```env
+TURSO_DATABASE_URL=
+```
+
+or when `TURSO_DATABASE_URL` is not configured.
+
+Run migrations:
+
+```bash
 npm run db:migrate
-npm run db:seed              # creates sample DevOps + Cloud Engineering tracks and an admin user
+```
+
+Seed the database:
+
+```bash
+npm run db:seed
+```
+
+---
+
+# 🌱 Seed Data
+
+The seed script creates the initial application data.
+
+Run:
+
+```bash
+npm run db:seed
+```
+
+The project includes initial roadmap subjects, topics, resources, and the default administrative account used by the seed implementation.
+
+### ⚠️ Important
+
+If the seed script creates a default admin account, change the default password before using the application publicly.
+
+---
+
+# 💻 Run the Development Server
+
+Start Next.js:
+
+```bash
 npm run dev
 ```
 
-Seed admin login defaults to `admin@roadmap.ai` / `ChangeMe123!` (override via `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` in `.env.local` before seeding).
+Open:
 
-- Public site: http://localhost:3000
-- Admin: http://localhost:3000/admin/login
-- Learner signup: http://localhost:3000/signup
+```text
+http://localhost:3000
+```
 
-## Scripts
+---
 
-| Script | Purpose |
-| --- | --- |
-| `npm run dev` | Start the dev server |
-| `npm run build` / `npm run start` | Production build / serve |
-| `npm run lint` | ESLint |
-| `npm run typecheck` | `tsc --noEmit` |
-| `npm run test` | Vitest unit tests |
-| `npm run test:e2e` | Playwright smoke tests |
-| `npm run db:generate` | Generate a Drizzle migration from `lib/db/schema.ts` |
-| `npm run db:migrate` | Apply migrations to the local SQLite file |
-| `npm run db:seed` | Seed sample tracks + admin user |
-| `npm run db:studio` | Open Drizzle Studio |
+# 📦 Available npm Scripts
 
-## Database: local vs. production
+| Command               | Purpose                     |
+| --------------------- | --------------------------- |
+| `npm run dev`         | Start development server    |
+| `npm run build`       | Create production build     |
+| `npm run start`       | Start production server     |
+| `npm run lint`        | Run ESLint                  |
+| `npm run typecheck`   | Run TypeScript checks       |
+| `npm run test`        | Run Vitest tests            |
+| `npm run test:e2e`    | Run Playwright E2E tests    |
+| `npm run db:generate` | Generate Drizzle migrations |
+| `npm run db:migrate`  | Run database migrations     |
+| `npm run db:studio`   | Open Drizzle Studio         |
+| `npm run db:seed`     | Seed database               |
 
-`lib/db/client.ts` picks the driver based on env: if `TURSO_DATABASE_URL` is set it connects to Turso (libSQL), otherwise it opens a local SQLite file at `SQLITE_PATH` (default `sqlite.db`). Same schema, same queries — only the connection changes.
+---
 
-## Deployment
+# 🧪 Testing
 
-- **Live**: https://roadmap-ai-neon.vercel.app (primary, production)
-- **Database**: Turso (libSQL), project `roadmap-ai` — migrated and seeded with the sample tracks + an admin account.
-- **Repo**: https://github.com/LondheShubham153/roadmap.ai
-- **CI**: GitHub Actions runs on every PR/push to `main`:
-  - `.github/workflows/lint.yml` — ESLint + `tsc --noEmit`
-  - `.github/workflows/ci.yml` — Vitest unit tests + production build
+The project uses two testing layers.
 
-Deploys are handled by Vercel's native GitHub integration (connect it once in the Vercel dashboard — Project Settings → Git — and every push to `main` deploys automatically). Production env vars (`TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN`, `AUTH_SECRET`) are set on the Vercel project — check the dashboard for current values, never print them to a terminal or chat.
+## Unit Tests
 
-`next.config.ts`'s `output` is conditional on `process.env.VERCEL`: Vercel gets its normal build output, and only the self-hosted Docker build (below) gets `"standalone"`. Don't remove that condition — `output: "standalone"` unconditionally breaks every Vercel build (`ENOENT: .next/next-server.js.nft.json`).
+Run:
 
-### Self-hosted (Docker / AWS EC2) — Phase 2, currently torn down
+```bash
+npm run test
+```
 
-`Dockerfile` + `docker-compose.yml` at the repo root run this as a single self-hosted container (Turso stays the database either way). `infra/aws/` has a Terraform module that provisions one EC2 instance for this — it was stood up, verified working, and then `terraform destroy`'d once the exercise was done, so nothing is running or billing on AWS right now. See `docs/AWS_DEPLOYMENT_PLAN.md` and `docs/aws-runbook.md` for the full setup and a "Phase 2.1" note on pushing images to a registry instead of building on the host.
+This executes the Vitest test suite.
 
-## Security
+---
 
-- **Headers**: CSP, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy`, and no `X-Powered-By` — configured in `next.config.ts`.
-- **Rate limiting, two layers**:
-  1. App-level (`lib/rate-limit.ts`, in-memory, per-instance): `/login`, `/admin/login` (5/min per IP+email, 10/min per IP), `/signup` (5/hour per IP).
-  2. Edge-level (Vercel Firewall, dashboard/CLI-managed — not represented in repo files): a custom rule rate-limits `POST /login` and `POST /admin/login` to 10 req/60s per IP. The account's plan allows only one custom rate-limit rule, so `/signup` is covered by the app-level layer only; revisit if the plan changes.
-- **Auth**: Auth.js v5, credentials provider, bcrypt-hashed passwords, JWT sessions, `trustHost: true` (needed for any non-Vercel target; harmless on Vercel, which auto-trusts its own host regardless).
-- **No account-existence leak**: signup returns a generic error whether or not an email is already registered.
-- Full audit trail and reasoning: see the security-hardening PRs on the repo (headers/rate-limiting/signup fix, and the earlier admin-login redirect-loop and `UntrustedHost` fixes).
-- **Secrets discipline**: never print a password, token, or key to a terminal or chat — write it to a local gitignored file (e.g. `.admin-credentials.local`, already ignored) if it needs to be handed off. This project has had a real credential leak once already; don't repeat it.
+# 🌐 End-to-End Tests
 
-## Sub-agents (parallel dev workflow)
+E2E tests use Playwright.
 
-`.claude/agents/` defines four single-purpose agents — `code-reviewer`, `linter`, `unit-tester`, `e2e-tester` — with no overlapping concerns, so they can run **in parallel** instead of one after another. Run `/pre-pr` before opening a pull request to fire all four at once against your current changes.
+Install the browser:
 
-## Contributing
+```bash
+npx playwright install --with-deps chromium
+```
 
-Never push directly to `main` — branch, open a PR, wait for CI (lint + test/build) and review, then merge. This applies to every change, including small fixes.
+Run:
+
+```bash
+npm run test:e2e
+```
+
+The Playwright configuration uses a dedicated SQLite database:
+
+```text
+sqlite.e2e.db
+```
+
+This prevents E2E tests from using production data.
+
+---
+
+# 🧪 E2E Database Setup
+
+Before running E2E tests manually:
+
+```bash
+rm -f sqlite.e2e.db
+npm run db:migrate
+npm run db:seed
+npm run test:e2e
+```
+
+The database flow is:
+
+```text
+Delete old E2E database
+        ↓
+Run migrations
+        ↓
+Seed application data
+        ↓
+Start Next.js
+        ↓
+Run Playwright
+```
+
+---
+
+# 🔐 E2E Authentication
+
+The E2E environment uses a dedicated dummy Auth.js secret:
+
+```text
+e2e-test-secret
+```
+
+This is configured in:
+
+```text
+playwright.config.ts
+```
+
+Example:
+
+```ts
+env: {
+  SQLITE_PATH: "sqlite.e2e.db",
+  AUTH_SECRET: "e2e-test-secret",
+},
+```
+
+This value is **only for E2E testing**.
+
+It must not be used as the production authentication secret.
+
+---
+
+# 🐳 Docker
+
+Build the Docker image:
+
+```bash
+docker build -t roadmap-ai:latest .
+```
+
+Run the image:
+
+```bash
+docker run -p 3000:3000 roadmap-ai:latest
+```
+
+Open:
+
+```text
+http://localhost:3000
+```
+
+---
+
+# 🐳 Docker Compose
+
+If using the project's Docker Compose configuration:
+
+```bash
+docker compose up --build
+```
+
+Stop the services:
+
+```bash
+docker compose down
+```
+
+---
+
+# 🔒 DevSecOps Pipeline
+
+This fork includes a modular reusable GitHub Actions DevSecOps pipeline.
+
+The pipeline contains:
+
+```text
+Code Quality
+      ↓
+Secrets Scanning
+      ↓
+Dependency Check
+      ↓
+Docker Scan
+      ↓
+SonarQube Scan
+      ↓
+Code Test
+      ↓
+Docker Push
+      ↓
+Deploy
+      ↓
+DAST
+```
+
+---
+
+# 🔍 Security Checks
+
+## Code Quality
+
+Checks:
+
+* ESLint
+* TypeScript
+
+---
+
+## Secret Scanning
+
+Uses:
+
+```text
+Gitleaks
+```
+
+to detect accidentally committed secrets.
+
+---
+
+## Dependency Security
+
+Uses:
+
+```bash
+npm audit --audit-level=high
+```
+
+to identify vulnerable npm dependencies.
+
+---
+
+## Docker Security
+
+The Docker workflow performs:
+
+* Dockerfile linting with Hadolint
+* Docker image vulnerability scanning with Trivy
+
+The Trivy scan checks:
+
+```text
+OS vulnerabilities
+Library vulnerabilities
+HIGH severity issues
+CRITICAL severity issues
+```
+
+---
+
+## SonarQube
+
+SonarQube is used for:
+
+* Static analysis
+* Code quality
+* Maintainability
+* Security analysis
+
+---
+
+## CodeQL
+
+CodeQL can be used for deeper source-code security analysis.
+
+---
+
+## DAST
+
+OWASP ZAP is used after deployment to perform dynamic application security testing against the running application.
+
+---
+
+# 🔄 Reusable GitHub Actions
+
+The DevSecOps pipeline is divided into reusable workflows:
+
+```text
+.github/workflows/
+
+├── devsecops.yml
+├── code_quality.yml
+├── secrets_scanning.yml
+├── dependency_check.yml
+├── docker_scan.yml
+├── sonar_scan.yml
+├── code_test.yml
+├── docker_push.yml
+├── deploy.yml
+└── dast.yml
+```
+
+The main workflow calls the individual reusable workflows.
+
+This keeps each security and CI/CD stage modular and easier to maintain.
+
+---
+
+# 🚦 DEVSECOPS Trigger
+
+The pipeline runs when code is pushed to the production branch.
+
+Documentation-only changes are ignored.
+
+For example:
+
+```yaml
+on:
+  push:
+    branches: [master]
+    paths-ignore:
+      - "**/*.md"
+```
+
+Therefore:
+
+```text
+README.md
+docs/setup.md
+docs/security.md
+```
+
+will not trigger the DevSecOps pipeline when they are the only changed files.
+
+However:
+
+```text
+README.md + application code
+```
+
+will trigger the pipeline.
+
+---
+
+# ☁️ Deployment
+
+## Live Application
+
+The deployed application is available at:
+
+**https://roadmap-ai.shashankpipal.in/**
+
+---
+
+# 🌐 Production Architecture
+
+The production setup separates the application, database, and CI/CD systems.
+
+```text
+                    GitHub
+                       │
+                       ▼
+               GitHub Actions
+                       │
+             ┌─────────┴─────────┐
+             │                   │
+             ▼                   ▼
+       DevSecOps Checks       Deployment
+             │                   │
+             └─────────┬─────────┘
+                       ▼
+                 Roadmap AI
+                       │
+                       ├──────────────► Production Database
+                       │                 Turso / libSQL
+                       │
+                       └──────────────► Production URL
+                                        roadmap-ai.shashankpipal.in
+```
+
+---
+
+# 🔑 Production Environment Variables
+
+Production requires environment variables such as:
+
+```env
+AUTH_SECRET=...
+TURSO_DATABASE_URL=...
+TURSO_AUTH_TOKEN=...
+```
+
+Store production secrets securely.
+
+Do not commit them to GitHub.
+
+For an EC2-based production setup, environment configuration can be stored outside the repository, for example:
+
+```text
+/opt/roadmap-ai/.env
+```
+
+---
+
+# 🖥️ EC2 Deployment
+
+For an EC2 deployment, the application can be maintained outside the GitHub Actions workspace.
+
+Example environment location:
+
+```text
+/opt/roadmap-ai/.env
+```
+
+This prevents deployment environment variables from being tied to the GitHub Actions working directory.
+
+---
+
+# 🔁 Recommended Development Flow
+
+```text
+Create feature branch
+        ↓
+Make changes
+        ↓
+Run tests locally
+        ↓
+git push
+        ↓
+Open Pull Request
+        ↓
+Review
+        ↓
+Merge to master
+        ↓
+DevSecOps pipeline
+        ↓
+Security checks
+        ↓
+Build / deployment
+        ↓
+DAST
+        ↓
+Production
+```
+
+---
+
+# 🧹 Cleanup
+
+Stop the local development server with:
+
+```text
+Ctrl + C
+```
+
+Stop Docker Compose:
+
+```bash
+docker compose down
+```
+
+Remove the local E2E database:
+
+```bash
+rm -f sqlite.e2e.db
+```
+
+---
+
+# 🤝 Credits
+
+## Original Author
+
+This project is based on the original Roadmap AI project by:
+
+**Shubham Londhe (`LondheShubham153`)**
+
+Original GitHub profile:
+
+https://github.com/LondheShubham153
+
+The original project's application structure, concept, and source implementation should be attributed to the original author.
+
+## This Fork
+
+Deployment, infrastructure, CI/CD, DevSecOps workflows, testing automation, and deployment configuration in this fork were implemented by:
+
+**Shashank Pipal**
+
+GitHub:
+
+https://github.com/shashankcodes-10
+
+Live deployment:
+
+https://roadmap-ai.shashankpipal.in/
+
+---
+
+# ⭐ Acknowledgement
+
+This repository is maintained as a learning and DevOps/DevSecOps implementation based on the original Roadmap AI project.
+
+The goal of this fork is to demonstrate how an existing full-stack application can be:
+
+* Containerized
+* Tested
+* Security scanned
+* Integrated with CI/CD
+* Deployed
+* Monitored through automated security checks
+
+while preserving credit to the original application author.
+
