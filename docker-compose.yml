@@ -3,9 +3,9 @@
 # (see docs/AWS_DEPLOYMENT_PLAN.md "Phase 2.1" for that follow-up).
 services:
   app:
-    build: .
+    image: shashank971/roadmap-ai:latest
     ports:
       - "3000:3000"
     env_file:
-      - .env.production
+      - .env
     restart: unless-stopped
