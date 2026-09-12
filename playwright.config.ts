@@ -10,7 +10,7 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     env: {
       SQLITE_PATH: "sqlite.e2e.db",
-      AUTH_SECRET: "e2e-test-secret",
+      AUTH_SECRET: "e2e-test-secret",  //dummy token for testing only
     },
   },
 
