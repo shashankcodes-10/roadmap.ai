@@ -26,7 +26,7 @@ jobs:
         env:
           SQLITE_PATH: sqlite.e2e.db
           TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
-          TURSO_AUTH_TOKEN:  ${{  TURSO_AUTH_TOKEN }}
+          TURSO_AUTH_TOKEN:  ${{  secrets.TURSO_AUTH_TOKEN }}
 
       - name: code test for node
         run: npm run test
