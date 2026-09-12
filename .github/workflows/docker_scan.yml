@@ -39,3 +39,16 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+
+
+#-------------------------fix--------------------------
+# ON LINE 7
+# hadolint ignore=DL3008 
+# WHY - build-only stage, tools never ship in the final image, so pinning versions isn't worth the upkeep.
+
+# ON LINE 29-32
+#      RUN apt-get update && apt-get upgrade -y libpcre2-8-0 \
+#        && rm -rf /var/lib/apt/lists/* \
+#        && rm -rf /usr/local/lib/node_modules/npm /opt/yarn-v1.22.22 \
+#            /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack
+# WHY - To patch the HIGH-severity pcre2 CVEs in the base OS and delete npm/yarn/corepack, which were pulling in 11 more CVEs from npm's bundled dependencies but are never used at runtime.

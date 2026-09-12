@@ -26,11 +26,6 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Patch known-vulnerable OS packages (e.g. libpcre2-8-0 CVE-2026-86145/89161)
-# and drop npm/yarn/corepack — unused at runtime since we run the standalone
-# server directly, not via npm. This also removes all Trivy-flagged CVEs
-# bundled inside npm's own node_modules.
-# hadolint ignore=DL3008
 RUN apt-get update && apt-get upgrade -y libpcre2-8-0 \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /usr/local/lib/node_modules/npm /opt/yarn-v1.22.22 \
