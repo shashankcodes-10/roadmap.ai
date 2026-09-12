@@ -14,7 +14,7 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version: "22"
           cache: npm
           cache-dependency-path: package-lock.json
 
@@ -25,10 +25,12 @@ jobs:
         run: |
           rm -f sqlite.e2e.db
           npm run db:migrate
+          npm run db:seed
         env:
           SQLITE_PATH: sqlite.e2e.db
           TURSO_DATABASE_URL: ""
           TURSO_AUTH_TOKEN: ""
+          AUTH_SECRET: e2e-test-secret
 
       - name: code test for node
         run: npm run test
@@ -40,3 +42,4 @@ jobs:
         run: npm run test:e2e
         env:
           SQLITE_PATH: sqlite.e2e.db
+          AUTH_SECRET: e2e-test-secret
