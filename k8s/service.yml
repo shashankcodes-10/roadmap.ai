@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: roadmap-service
+  namespace: roadmap
+
+
+spec:
+  selector:
+    app: roadmap
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000     
